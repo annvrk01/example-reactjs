@@ -1,7 +1,11 @@
 import { useEffect, useRef } from "react";
+import Form from 'react-bootstrap/Form'
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Button from 'react-bootstrap/Button';
 
-function CreateStudentForm(props) {
+function CreateStudentForm (props) {
   const { handleSubmitStudent, studentUpdate } = props;
+
   const inputIdRef = useRef(null);
   const inputNameRef = useRef(null);
   const inputAgeRef = useRef(null);
@@ -10,11 +14,12 @@ function CreateStudentForm(props) {
   const inputAddressRef = useRef(null);
 
   useEffect(() => {
-    if (studentUpdate) {
+    if (studentUpdate) { // neu id != null la chinh sua 
       inputIdRef.current.value = studentUpdate.id;
       inputNameRef.current.value = studentUpdate.name;
       inputAgeRef.current.value = studentUpdate.age;
     } else {
+      // truong hop them moi 
       inputIdRef.current.value = "";
       inputNameRef.current.value = "";
       inputAgeRef.current.value = "";
@@ -24,7 +29,7 @@ function CreateStudentForm(props) {
     }
   }, [studentUpdate]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
     const student = {
       id: inputIdRef.current.value,
       name: inputNameRef.current.value,
@@ -40,49 +45,58 @@ function CreateStudentForm(props) {
     inputGenderRef.current.value = "";
     inputDayBirthRef.current.value = "";
     inputAddressRef.current.value = "";
+    event.preventDefault();
+    event.stopPropagation();
   };
 
   return (
-    <div style={{ textAlign: "left" }}>
+    <Form style={{ textAlign: "left" }}>
       <h2>
         {studentUpdate
           ? "Chỉnh sửa thông Tin Sinh Viên "
           : " Thêm thông Tin Sinh Viên"}
       </h2>
       <div>
-        <div style={{ display: "flex" }}>
-          <label style={{ width: 150 }}>Mã sinh viên:</label>
-          <input ref={inputIdRef} />
-        </div>
-        <div style={{ display: "flex" }}>
-          <label style={{ width: 150 }}>Tên sinh viên:</label>
-          <input ref={inputNameRef} />
-        </div>
-        <div style={{ display: "flex" }}>
-          <label style={{ width: 150 }}>Tuổi:</label>
-          <input ref={inputAgeRef} />
-        </div>
-        <div style={{ display: "flex" }}>
-          <label style={{ width: 150 }}>Giới tính:</label>
-          <input ref={inputGenderRef} />
-        </div>
-        <div style={{ display: "flex" }}>
-          <label style={{ width: 150 }}>Ngày sinh:</label>
-          <input type="date" ref={inputDayBirthRef} />
-        </div>
-        <div style={{ display: "flex" }}>
-          <label style={{ width: 150 }}>Địa chỉ:</label>
-          <input ref={inputAddressRef} />
-        </div>
 
+        <Form>
+          <Form.Group className="mb-3" controlId="formGroupId">
+            <Form.Label>Mã sinh viên :</Form.Label>
+            <Form.Control type="text"  ref={inputIdRef}  />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formGroupName">
+            <Form.Label>Tên sinh viên:</Form.Label>
+            <Form.Control type="text"  ref={inputNameRef} />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formGroupAge">
+            <Form.Label>Tuổi:</Form.Label>
+            <Form.Control type="text" ref={inputAgeRef} />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formGroupGender">
+            <Form.Label>Giới tính:</Form.Label>
+            <Form.Control type="text" ref={inputGenderRef} />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formGroupBirth">
+            <Form.Label>Ngày sinh:</Form.Label>
+            <Form.Control type="date" ref={inputDayBirthRef} />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formGroupAddress">
+            <Form.Label>Địa chỉ:</Form.Label>
+            <Form.Control type="text" ref={inputAddressRef} />
+          </Form.Group>     
+        </Form>
         <br />
         <br />
-        <button onClick={handleSubmit}>
+        <Button onClick={handleSubmit}>
           {studentUpdate ? "Chỉnh sửa" : " Thêm mới "}
-        </button>
+        </Button>
       </div>
       <hr />
-    </div>
+    </Form>
   );
 }
 

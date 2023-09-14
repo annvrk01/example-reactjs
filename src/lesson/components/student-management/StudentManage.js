@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./studentManage.css";
 import CreateStudentForm from "./CreateStudentForm";
 import ShowStudentDetail from "./ShowStudentDetail";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Table from 'react-bootstrap/Table'
 
-function StudentManage(props) {
+import Button from 'react-bootstrap/Button';
+
+function StudentManage (props) {
   // Khởi tạo State
   const [students, setStudents] = useState([]);
   const [studentDetail, setStudentDetail] = useState(null);
@@ -21,6 +25,12 @@ function StudentManage(props) {
       {
         id: 2,
         name: "Nguyen Van B",
+        age: 20,
+        sex: false,
+      },
+      {
+        id: 2,
+        name: "Nguyen Van C",
         age: 20,
         sex: false,
       },
@@ -72,14 +82,12 @@ function StudentManage(props) {
   return (
     <div>
       <h1> Danh sách sinh viên </h1>
-      <button
-        onClick={() => {
-          handleCreateStudent();
-        }}
-      >
-        Thêm mới
-      </button>
-      <table className="tg">
+
+      <Button variant="primary" onClick={() => {
+        handleCreateStudent();
+      }}
+      > Thêm mới </Button>
+      <Table className="tg">
         <thead>
           <tr>
             <th className="tg-0lax">ID</th>
@@ -97,33 +105,34 @@ function StudentManage(props) {
               <td className="tg-0lax">{item.age}</td>
               <td className="tg-0lax">{item.sex}</td>
               <td className="tg-0lax">
-                <button
+                <Button variant="danger"
                   onClick={() => {
                     handleRemoveStudent(item.id);
                   }}
                 >
                   Xóa
-                </button>
-                <span> / </span>
-                <button
+                </Button>
+
+
+                <Button variant="warning"
                   onClick={() => {
                     handleUpdateStudent(item.id);
                   }}
                 >
                   Sửa
-                </button>
-                <button
+                </Button>
+                <Button variant="info"
                   onClick={() => {
                     handleDetailsStudent(item);
                   }}
                 >
                   Xem chi tiet
-                </button>
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
       <hr />
       <CreateStudentForm
         handleSubmitStudent={handleSubmitStudent}
