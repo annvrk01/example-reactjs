@@ -20,7 +20,7 @@ function CreateStudentForm (props) {
       inputAgeRef.current.value = studentUpdate.age;
     } else {
       // truong hop them moi 
-      inputIdRef.current.value = "";
+      inputIdRef.current.value = "a";
       inputNameRef.current.value = "";
       inputAgeRef.current.value = "";
       inputGenderRef.current.value = "";
