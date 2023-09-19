@@ -1,6 +1,6 @@
 import React from "react";import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import {Navbar, Row, Col,Form, InputGroup, Button} from 'react-bootstrap/';
+import {Navbar, Row, Col,Form, Button} from 'react-bootstrap/';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from "react-router-dom";
 
@@ -13,7 +13,9 @@ const NavBarHome = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to='/'>Home</Nav.Link>
-            <Nav.Link as={Link} to='/my'>Student List</Nav.Link>
+            <Nav.Link as={Link} to='/student'>Student</Nav.Link>
+            <Nav.Link as={Link} to='/my'>My</Nav.Link>
+            <Nav.Link as={Link} to='/user'>User List</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -38,7 +40,7 @@ const NavBarHome = () => {
             />
           </Col>
           <Col xs="auto">
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Search</Button>
           </Col>
         </Row>
       </Form>
