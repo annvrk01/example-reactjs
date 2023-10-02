@@ -16,6 +16,7 @@ const NavBarHome = () => {
             <Nav.Link as={Link} to='/student'>Student</Nav.Link>
             <Nav.Link as={Link} to='/my'>My Class</Nav.Link>
             <Nav.Link as={Link} to='/user'>User List</Nav.Link>
+            <Nav.Link as={Link} to='/sanpham'>San pham</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">

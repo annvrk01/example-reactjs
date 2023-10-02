@@ -2,12 +2,22 @@ import React, { useCallback, useContext, useEffect, useReducer, useRef, useState
 import { Context } from '../../../context/ContextHelper'
 import { useSelector, useDispatch } from "react-redux"
 import { ADD_TODO } from "../../../constants"
+import axios from 'axios';
 function Home (props) {
     const [count, setCount] = useState(0);
     const value = useContext(Context);
     const todos = useSelector(state => state.todos)
-
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        axios.get(`http://localhost:3000/users`)
+            .then(res => {
+                console.log('res', res)
+            })
+            .catch(error => console.log(error));
+
+    }, []);
+
 
     console.log('11 todo', todos)
     function reducer (state, action) {
@@ -54,9 +64,7 @@ function Home (props) {
         console.log("useEffect 1");
     });
 
-    useEffect(() => {
-        console.log("useEffect 2");
-    }, []);
+  
 
     useEffect(() => {
         console.log("useEffect 3");

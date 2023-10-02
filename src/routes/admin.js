@@ -8,6 +8,11 @@ import ShowStudentDetail from './../pages/site-admin/student-management/ShowStud
 
 import Users from './../components/molecules/users-management/Users';
 import MyComponent from './../components/molecules/example/MyComponent'
+import User from "./../pages/site-admin/user/index";
+import UserAdd from "./../pages/site-admin/user/add";
+
+import Sanpham from "../pages/site-admin/sanpham";
+import SanphamAdd from "../pages/site-admin/sanpham/add";
 // import history from "./history"
 
 function RoutesAdmin() {
@@ -20,8 +25,16 @@ function RoutesAdmin() {
             <Route path="/student/edit/:id" element={<CreateStudentForm />} />
             <Route path="/student/detail/:id" element={<ShowStudentDetail />} />
 
+            <Route path="/user" element={<User />} />
+            <Route path="/user/add" element={<UserAdd />} />
+
+            <Route path="/sanpham" element={<Sanpham />} />
+            <Route path="/sanpham/add" element={<SanphamAdd />} />
+
+
+
             <Route path="/my" element={<MyComponent />} />
-            <Route path="/user" element={<Users />} />
+            {/* <Route path="/user" element={<Users />} /> */}
           </Routes>
       );
     }

@@ -1,4 +1,4 @@
-import { ADD_TODO, STUDENT } from "./../../constants"
+import { ADD_TODO, SANPHAM, STUDENT, USER } from "./../../constants"
 // Khởi tạo data
 const initialState = {
    name: "toDo",
@@ -25,8 +25,55 @@ const initialState = {
         age: 20,
         sex: false,
       },
+    ],
+
+    users:[
+      {
+        id  : 1,
+        name : "Nguyen Van A",
+        email : "nguyenvananA"
+      },
+      {
+        id  : 1,
+        name : "Nguyen Van B",
+        email : "nguyenvananA"
+      },
+      {
+        id  : 1,
+        name : "Nguyen Van C",
+        email : "nguyenvananA"
+      }
+    ],
+
+    sanphams:[
+      {
+        Stt: '1',
+        tenSanPham: "may tinh",
+        gia: '1.000.000',
+        loaiSanPham: "dien tu",
+        soLuong: ' 1',
+      },
+      {
+        Stt: '2',
+        tenSanPham: "dien thoai",
+        gia: '500.000',
+        loaiSanPham: "dien tu",
+        soLuong: ' 4',
+      },
+     
+      {
+        Stt: '3',
+        tenSanPham: "may tinh bang",
+        gia: '700.000',
+        loaiSanPham: "dien tu",
+        soLuong: ' 1',
+      },
     ]
+  
   }
+  
+
+  
 
  export const todoReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -76,7 +123,27 @@ const initialState = {
           students: updatedStudents
         }     
       // end xử lý phần student  
+
+      case USER.STUDENT_ADD:
+        let users= [...state.users];
+        users.push(action.payload)
+        return {
+          ...state,
+          users:  users
+        }  
+
+      case SANPHAM.SANPHAM_ADD:
+          let sanphams= [...state.sanphams];
+          sanphams.push(action.payload)
+          return {
+            ...state,
+            sanphams:  sanphams
+          }  
+  
+
       default:
         return state
+
+
+        }
     }
-  }

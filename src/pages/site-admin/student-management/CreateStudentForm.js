@@ -6,6 +6,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
 import { STUDENT } from "../../../constants/index"
+import axios from 'axios';
 
 function CreateStudentForm (props) {
 
@@ -25,17 +26,31 @@ function CreateStudentForm (props) {
 
   useEffect(() => {
     // nếu có id thuộc trường hợp chỉnh sửa
-    if (id) {
-      const studentUpdate = students.find((x) => Number(x.id) === Number(id));
-      if (studentUpdate) {
-        inputIdRef.current.value = studentUpdate.id;
-        inputNameRef.current.value = studentUpdate.name;
-        inputAgeRef.current.value = studentUpdate.age;
+    // if (id) {
+    //   const studentUpdate = students.find((x) => Number(x.id) === Number(id));
+    //   if (studentUpdate) {
+    //     inputIdRef.current.value = studentUpdate.id;
+    //     inputNameRef.current.value = studentUpdate.name;
+    //     inputAgeRef.current.value = studentUpdate.age;
+    //   }
+    // }
+    if(!id) return;
+    console.log("getting student, id = " + id);
+    axios.get("http://localhost:3000/users/" + id, {})
+    .then(
+      respond => {
+        let gotStudent = respond.data;
+        inputIdRef.current.value = gotStudent.id;
+        inputNameRef.current.value = gotStudent.name;
+        inputAgeRef.current.value = gotStudent.age;     
+
+        console.log("got student, gotStudent = ",gotStudent);
       }
-    }
+    );
   }, []);
 
   const handleSubmit = (event) => {
+
     const student = {
       id: inputIdRef.current.value,
       name: inputNameRef.current.value,
@@ -44,10 +59,29 @@ function CreateStudentForm (props) {
       dayBirth: inputDayBirthRef.current.value,
       address: inputAddressRef.current.value,
     };
-    dispatch({
-      type: STUDENT.STUDENT_ADD,
-      payload: student
-    })
+    if (id) {
+      axios.put(`http://localhost:3000/users/${5}`,student)
+      .then(res=>{
+        console.log('res',res);
+        console.log(res.data)
+      })
+    } else {
+      axios.post(`http://localhost:3000/users`,student)
+      .then(res=>{
+        console.log('res',res);
+        console.log(res.data)
+      })
+    }
+
+   
+
+      dispatch({
+        type: STUDENT.STUDENT_ADD,
+        payload: student
+      })
+      
+
+
     navigate('./..')
     event.preventDefault();
     event.stopPropagation();

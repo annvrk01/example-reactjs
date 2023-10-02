@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { useNavigate } from "react-router-dom";
@@ -9,9 +9,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import Table from 'react-bootstrap/Table'
 
 import { STUDENT } from "./../../../constants/index"
-import ConfirmDelete from  './../../../components/molecules/confirm'
+import ConfirmDelete from './../../../components/molecules/confirm'
 
 import "./../../../scss/student-management/index.scss";
+import axios from 'axios';
 
 function StudentManage (props) {
   const navigate = useNavigate();
@@ -20,10 +21,19 @@ function StudentManage (props) {
 
   const [idDeleta, setIdDelete] = useState(null);
   const [show, setShow] = useState(false);
-  
+  const [studentsAPI, setStudentAPI] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/users`)
+      .then(res => {
+        console.log(res, 'res')
+        setStudentAPI(res.data)
+      })
+      .catch(error => console.log(error));
+  }, [])
+
   // event click vào button thêm mới
   const handleCreateStudent = () => {
     // xử lý chuyển trang
@@ -34,9 +44,21 @@ function StudentManage (props) {
   const handleRemoveStudent = (id) => {
     setIdDelete(id)
     handleShow();
-   
+
   };
-  const handleSubmitConfirm = ()=>{
+  const handleSubmitConfirm = async () => {
+    await axios.delete(`http://localhost:3000/users/${idDeleta}`)
+      .then(res => {
+        console.log('res', res);
+        console.log(res.data)
+      });
+
+    await axios.get('http://localhost:3000/users')
+      .then(res => {
+        console.log(res, 'res')
+        setStudentAPI(res.data)
+      }).catch(error => console.log(error));
+
     dispatch({
       type: STUDENT.STUDENT_DELETE,
       payload: {
@@ -50,12 +72,12 @@ function StudentManage (props) {
   // event click vào button chỉnh sửa
   const handleUpdateStudent = (id) => {
     // chuyển trang kèm theo id
-    navigate("edit/"+ id);
+    navigate("edit/" + id);
   };
 
   // event click vào button chi tiết
   const handleDetailsStudent = (item) => {
-    navigate("detail/"+item.id);    
+    navigate("detail/" + item.id);
   };
 
   return (
@@ -84,7 +106,7 @@ function StudentManage (props) {
                 </tr>
               </thead>
               <tbody>
-                {students?.map((item) => (
+                {studentsAPI?.map((item) => (
                   <tr>
                     <td className="tg-0lax">{item.id}</td>
                     <td className="tg-0lax">{item.name}</td>
@@ -120,7 +142,7 @@ function StudentManage (props) {
             </Table>
           </Col>
         </Row>
-         <ConfirmDelete show={ show } handleClose ={handleClose  } handleSubmitConfirm ={ handleSubmitConfirm}> </ConfirmDelete>
+        <ConfirmDelete show={show} handleClose={handleClose} handleSubmitConfirm={handleSubmitConfirm}> </ConfirmDelete>
       </Container>
 
     </div>
