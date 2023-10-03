@@ -3,13 +3,21 @@ import { Context } from '../../../context/ContextHelper'
 import { useSelector, useDispatch } from "react-redux"
 import { ADD_TODO } from "../../../constants"
 import axios from 'axios';
+
+import { addPost } from './../../../redux/reducer/todoSlice';
+
 function Home (props) {
     const [count, setCount] = useState(0);
     const value = useContext(Context);
     const todos = useSelector(state => state.todos)
     const dispatch = useDispatch();
+    const todoList = useSelector(state => state.todos);
 
     useEffect(() => {
+        console.log('useEffect AAAAAAAAAAAAA')
+       const action=   addPost({ id : 1, title:"Nguyen Van"})
+       dispatch(action)
+
         axios.get(`http://localhost:3000/users`)
             .then(res => {
                 console.log('res', res)
@@ -94,6 +102,15 @@ function Home (props) {
 
     return (
         <div>
+
+<ul>
+      {todoList.map((todo, idx) => (
+        <li key={todo.id} >
+          {todo.title}
+        </li>
+      ))}
+    </ul>
+
             <h1> Home:  {value}</h1>
             <button onClick={handelCallback}> handelCallback</button>
             <button onClick={addCount}> Add Count</button>

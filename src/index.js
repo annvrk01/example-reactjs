@@ -8,7 +8,8 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { todoReducer } from './redux/reducer/todoReducer'
 
-const store = createStore(todoReducer)
+// const store = createStore(todoReducer)
+import { store }  from './redux/store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

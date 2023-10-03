@@ -27,6 +27,7 @@ function RoutesAdmin() {
 
             <Route path="/user" element={<User />} />
             <Route path="/user/add" element={<UserAdd />} />
+            <Route path="/user/edit/:id" element={<UserAdd />} />
 
             <Route path="/sanpham" element={<Sanpham />} />
             <Route path="/sanpham/add" element={<SanphamAdd />} />

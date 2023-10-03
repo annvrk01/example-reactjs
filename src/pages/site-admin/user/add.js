@@ -6,29 +6,45 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
 import { USER } from "../../../constants/index"
+import { addUser } from "../../../redux/reducer/userSlice";
 
 function UserAdd (props) {
       //  gọi hàm dispatch() để gửi một hành động đến store
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
+    let { id } = useParams();
     const inputIdRef = useRef(null);
     const inputNameRef = useRef(null);
-    const inputEmailRef = useRef(null);
+    const inputAgeRef = useRef(null);
     const handleSubmit = () =>{
         console.log('inputIdRef', inputIdRef)
         const item= {
             id  : inputIdRef?.current?.value,
             name  : inputNameRef?.current?.value,
-            email : inputEmailRef?.current?.value
+            age : inputAgeRef?.current?.value
         }
-        dispatch( {
-            type: USER.USER_ADD,
-            payload : item
-        })
+        const myAction = addUser(item);
+        dispatch(myAction);
+
         navigate("./..");
     }
+
+    useEffect(() => {
+      // nếu có id thuộc trường hợp chỉnh sửa
+      // if (id) {
+      //   const studentUpdate = students.find((x) => Number(x.id) === Number(id));
+      //   if (studentUpdate) {
+      //     inputIdRef.current.value = studentUpdate.id;
+      //     inputNameRef.current.value = studentUpdate.name;
+      //     inputAgeRef.current.value = studentUpdate.age;
+      //   }
+      // }
+      if(!id) return;
+      console.log("getting user, id = " + id);
+
+      
+    }, []);
 
   return (
     <Container>
@@ -46,8 +62,8 @@ function UserAdd (props) {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGroupAge">
-              <Form.Label>Email:</Form.Label>
-              <Form.Control type="text"  ref={ inputEmailRef}  />
+              <Form.Label>Age:</Form.Label>
+              <Form.Control type="text"  ref={ inputAgeRef}  />
             </Form.Group>
           </Form>
 
