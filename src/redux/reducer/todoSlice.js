@@ -4,11 +4,9 @@ const todoSlice = createSlice({
     initialState: [],
     reducers: {
       addPost(state, action) {
-        console.log('addPost BBBB ')
         state.push(action.payload);
       },
       removePost(state, action) {
-        console.log('removePost')
         state.splice(action.payload, 1)
       }
     }

@@ -31,7 +31,7 @@ function User (props) {
             <Button variant="primary" className="btn-create" onClick={() => {
               handleCreateUser();
             }}
-            > Thêm mới
+            > Add
             </Button>
           </Col>
         </Row>
@@ -44,7 +44,7 @@ function User (props) {
                   <th className="tg-0lax">ID</th>
                   <th className="tg-0lax">Nam</th>
                   <th className="tg-0lax">AGE</th>
-                  <th className="tg-0lax" style={{ width: 300 }}>Chức năng</th>
+                  <th className="tg-0lax" style={{ width: 300 }}>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -59,7 +59,7 @@ function User (props) {
                           handleRemoveUser(item.id);
                         }}
                       >
-                        Xóa
+                        Delete
                       </Button>
 
                       <Button variant="warning"
@@ -67,7 +67,7 @@ function User (props) {
                           handleUpdateStudent(item.id);
                         }}
                       >
-                        Sửa
+                        Update
                       </Button>
                       {/* <Button variant="info"
                         onClick={() => {

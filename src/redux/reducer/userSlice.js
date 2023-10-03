@@ -1,31 +1,28 @@
-import { createSlice} from "@reduxjs/toolkit"
-
-
-
+import { createSlice, current } from "@reduxjs/toolkit"
 
 const userSlice = createSlice({
     name: 'users',
     initialState: [{
-        id:0,
+        id: 0,
         name: 'Nguyen Van A',
         age: 20,
     }],
     reducers: {
-        addUser(state, action) {
-          console.log('adding user')
-          state.push(action.payload);
+        addUser (state, action) {
+            state.push(action.payload);
         },
-        removeUser(state, action) {
-            console.log('remove user')
+        removeUser (state, action) {
             state.splice(action.payload, 1)
-            console.log(action.payload)
-          },
-        updateUser(state, action) {
-            
+        },
+        updateUser (state, action) {
+            const indexUser = current(state).findIndex(item => item.id !== action.payload.id)
+            if(indexUser > -1){
+                state[indexUser]= action.payload
+            }
         }
     }
 })
 
-const {actions, reducer} = userSlice
+const { actions, reducer } = userSlice
 export const { addUser, removeUser, updateUser } = actions;
 export default reducer
