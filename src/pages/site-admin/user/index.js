@@ -1,8 +1,10 @@
+import React , { useEffect} from "react"
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../../../redux/reducer/userSlice";
-function User (props) {
+import { fetchUser} from "./../../../redux/api/user/index"
+function User () {
 
   const users = useSelector(state => state.users)
   const dispatch = useDispatch();
@@ -22,6 +24,9 @@ function User (props) {
     navigate("edit/" + id);
 
   }
+  useEffect(() => {
+    dispatch(fetchUser())
+  }, [])
   return (
     <div>
       <Container>
@@ -49,7 +54,7 @@ function User (props) {
               </thead>
               <tbody>
                 {users?.map((item) => (
-                  <tr>
+                  <tr key={item.id }>
                     <td className="tg-0lax">{item.id}</td>
                     <td className="tg-0lax">{item.name}</td>
                     <td className="tg-0lax">{item.age}</td>

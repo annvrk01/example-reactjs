@@ -14,10 +14,9 @@ import ConfirmDelete from './../../../components/molecules/confirm'
 import "./../../../scss/student-management/index.scss";
 import axios from 'axios';
 
-function StudentManage (props) {
+function StudentManage () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const students = useSelector(state => state.students) // get giá trị state students
 
   const [idDeleta, setIdDelete] = useState(null);
   const [show, setShow] = useState(false);

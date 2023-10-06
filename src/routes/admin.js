@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes,  Route } from "react-router-dom";
 
 import Home from './../components/molecules/home';
@@ -6,7 +7,6 @@ import StudentManage from './../pages/site-admin/student-management/StudentManag
 import CreateStudentForm from './../pages/site-admin/student-management/CreateStudentForm'
 import ShowStudentDetail from './../pages/site-admin/student-management/ShowStudentDetail'
 
-import Users from './../components/molecules/users-management/Users';
 import MyComponent from './../components/molecules/example/MyComponent'
 import User from "./../pages/site-admin/user/index";
 import UserAdd from "./../pages/site-admin/user/add";

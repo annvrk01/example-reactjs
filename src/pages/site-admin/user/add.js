@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux"
 // import { USER } from "../../../constants/index"
 import { addUser, updateUser } from "../../../redux/reducer/userSlice";
 
-function UserAdd (props) {
+function UserAdd () {
   //  gọi hàm dispatch() để gửi một hành động đến store
   const dispatch = useDispatch();
   const navigate = useNavigate();
