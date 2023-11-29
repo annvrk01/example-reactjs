@@ -30,6 +30,8 @@ module.exports = {
     "rules": {
         "no-case-declarations" : "off",
         "react/react-in-jsx-scope": "off",
-        "react/prop-types" : "off"
+        "react/prop-types" : "off",
+        "no-unused-vars" : 'off',
+        "react/jsx-key" : "off"
     }
 }
