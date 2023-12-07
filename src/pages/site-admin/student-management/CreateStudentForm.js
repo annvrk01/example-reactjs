@@ -17,12 +17,11 @@ function CreateStudentForm (props) {
   const students = useSelector(state => state.students)
   let { id } = useParams();
   // khởi tạo useRef
-  const inputIdRef = useRef(null);
-  const inputNameRef = useRef(null);
-  const inputAgeRef = useRef(null);
-  const inputGenderRef = useRef(null);
-  const inputDayBirthRef = useRef(null);
-  const inputAddressRef = useRef(null);
+
+  const inputUsernameRef = useRef(null);
+  const inputEmailRef = useRef(null);
+  const inputRealnameRef = useRef(null);
+
 
   useEffect(() => {
     // nếu có id thuộc trường hợp chỉnh sửa
@@ -36,13 +35,14 @@ function CreateStudentForm (props) {
     // }
     if(!id) return;
     console.log("getting student, id = " + id);
-    axios.get("http://localhost:3000/users/" + id, {})
+    axios.get("http://localhost:8000/api/user/" + id, {})
     .then(
       respond => {
-        let gotStudent = respond.data;
-        inputIdRef.current.value = gotStudent.id;
-        inputNameRef.current.value = gotStudent.name;
-        inputAgeRef.current.value = gotStudent.age;     
+        let gotStudent = respond.data.data;
+        console.log('respond.data',respond.data)
+        inputUsernameRef.current.value = gotStudent.username;
+        inputEmailRef.current.value = gotStudent.email;
+        inputRealnameRef.current.value = gotStudent.realname;     
 
         console.log("got student, gotStudent = ",gotStudent);
       }
@@ -52,21 +52,22 @@ function CreateStudentForm (props) {
   const handleSubmit = (event) => {
 
     const student = {
-      id: inputIdRef.current.value,
-      name: inputNameRef.current.value,
-      age: Number(inputAgeRef.current.value),
-      sex: inputGenderRef.current.value.toLowerCase() === "nam" ? true : false,
-      dayBirth: inputDayBirthRef.current.value,
-      address: inputAddressRef.current.value,
+      
+      username: inputRealnameRef.current.value,
+      email:  inputEmailRef.current.value,
+      realname: inputRealnameRef.current.value,
+      password: '123456'
     };
     if (id) {
-      axios.put(`http://localhost:3000/users/${5}`,student)
+      axios.put(`http://localhost:8000/api/user/${id}`,student)
       .then(res=>{
         console.log('res',res);
         console.log(res.data)
+        
+    navigate('./../..')
       })
     } else {
-      axios.post(`http://localhost:3000/users`,student)
+      axios.post(`http://localhost:8000/api/user`,student)
       .then(res=>{
         console.log('res',res);
         console.log(res.data)
@@ -101,27 +102,24 @@ function CreateStudentForm (props) {
         <div>
 
           <Form>
-            <Form.Group className="mb-3" controlId="formGroupId">
-              <Form.Label>Mã sinh viên :</Form.Label>
-              <Form.Control type="text" ref={inputIdRef} />
-            </Form.Group>
+           
 
             <Form.Group className="mb-3" controlId="formGroupName">
               <Form.Label>Tên sinh viên:</Form.Label>
-              <Form.Control type="text" ref={inputNameRef} />
+              <Form.Control type="text" ref={inputUsernameRef} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGroupAge">
-              <Form.Label>Tuổi:</Form.Label>
-              <Form.Control type="text" ref={inputAgeRef} />
+              <Form.Label>Email:</Form.Label>
+              <Form.Control type="text" ref={ inputEmailRef} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGroupGender">
-              <Form.Label>Giới tính:</Form.Label>
-              <Form.Control type="text" ref={inputGenderRef} />
+              <Form.Label>Realname:</Form.Label>
+              <Form.Control type="text" ref={inputRealnameRef} />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formGroupBirth">
+            {/* <Form.Group className="mb-3" controlId="formGroupBirth">
               <Form.Label>Ngày sinh:</Form.Label>
               <Form.Control type="date" ref={inputDayBirthRef} />
             </Form.Group>
@@ -129,7 +127,7 @@ function CreateStudentForm (props) {
             <Form.Group className="mb-3" controlId="formGroupAddress">
               <Form.Label>Địa chỉ:</Form.Label>
               <Form.Control type="text" ref={inputAddressRef} />
-            </Form.Group>
+            </Form.Group> */}
           </Form>
 
           <Row >

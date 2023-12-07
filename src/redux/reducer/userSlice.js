@@ -1,17 +1,21 @@
 import {  createSlice, current } from "@reduxjs/toolkit"
 import { fetchUser } from "../api/user";
 
+const initData=  {
+    data : [
+        {
+            id: 0,
+            name: 'Nguyen Van A',
+            age: 20,
+        }
+    ]
+}
 const userSlice = createSlice({
     name: 'users',
-
-    initialState: [{
-        id: 0,
-        name: 'Nguyen Van A',
-        age: 20,
-    }],
+    initialState: initData,
     reducers: {
         addUser (state, action) {
-            state.push(action.payload);
+            state.data.push(action.payload);
         },
         removeUser (state, action) {
             state.splice(action.payload, 1)

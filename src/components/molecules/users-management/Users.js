@@ -83,7 +83,7 @@ function Users (props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {
+                    {/* {
                         users.map((user, index) => <tr>
                             <td>{index + 1}</td>
                             <td>{user.id}</td>
@@ -98,7 +98,7 @@ function Users (props) {
                                 <Button variant="danger" onClick={() => { handleRemoveUser(user.id) }} >Xóa</Button>
                             </td>
                         </tr>)
-                    }
+                    } */}
                 </tbody>
             </Table>
             <AddStudent handleSubmitStudent={handleSubmitUser} />
